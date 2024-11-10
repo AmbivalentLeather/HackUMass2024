@@ -1,82 +1,93 @@
-int LEDpin = 13;
-int LEDpin2 = 12;
-int LEDpin3 = 11;
-int NEUpin0 = 7;
-int NEUpin1 = 6;
-int NEUpin2 = 5;
-int NEUpin3 = 4;
-
+int LEDpin[] = {13, 12, 11};
+int NEUpin[] = {7, 6, 5};
 
 int level;
 int delayT = 1;
-void setup() {
-  pinMode(LEDpin, OUTPUT);
-  pinMode(LEDpin2, OUTPUT);
-  pinMode(LEDpin3, OUTPUT);
+int delayL = 1000;
 
-  pinMode(NEUpin0, OUTPUT);
-  pinMode(NEUpin1, OUTPUT);
-  pinMode(NEUpin2, OUTPUT);
-  pinMode(NEUpin3, OUTPUT);
+int count;
+int permaCount = 100;
+
+void setup() {
+  pinMode(LEDpin[0], OUTPUT);
+  pinMode(LEDpin[1], OUTPUT);
+  pinMode(LEDpin[2], OUTPUT);
+
+  pinMode(NEUpin[0], OUTPUT);
+  pinMode(NEUpin[1], OUTPUT);
+  pinMode(NEUpin[2], OUTPUT);
+
+  digitalWrite(NEUpin[0], HIGH);
+  digitalWrite(NEUpin[1], HIGH);
+  digitalWrite(NEUpin[2], HIGH);
 }
 void loop() {
-  // put your main code here, to run repeatedly:
-
-  level = 0;
-
-  if (level == 0){
-    digitalWrite(NEUpin0, LOW);
-    digitalWrite(LEDpin, HIGH);
-    delay(delayT);
-    digitalWrite(LEDpin, LOW);
-    delay(delayT);
-    digitalWrite(NEUpin0, HIGH);
-
-    digitalWrite(NEUpin1, LOW);
-    digitalWrite(LEDpin2, HIGH);
-    delay(delayT);
-    digitalWrite(LEDpin2, LOW);
-    delay(delayT);
-    digitalWrite(NEUpin1, HIGH);
-  } else {
-    digitalWrite(NEUpin0, LOW);
-    digitalWrite(LEDpin, LOW);
-    delay(delayT);
-    digitalWrite(NEUpin0, HIGH);
-
-    digitalWrite(NEUpin1, LOW);
-    digitalWrite(LEDpin2, LOW);
-    delay(delayT);
-    digitalWrite(NEUpin1, HIGH);
+  
+  count = permaCount;
+  while (count > 0) { 
+    ledON(0, 0);
+    count = count - 1;
   }
+  delay(delayL);
+  ledOFF(0, 0);
 
-  if (level == 1) {
-    digitalWrite(NEUpin2, LOW);
-    digitalWrite(LEDpin3, HIGH);
-    delay(delayT);
-    digitalWrite(LEDpin3, LOW);
-    delay(delayT);
-    digitalWrite(NEUpin2, HIGH);
 
-    digitalWrite(NEUpin3, LOW);
-    digitalWrite(LEDpin, HIGH);
-    delay(delayT);
-    digitalWrite(LEDpin, LOW);
-    delay(delayT);
-    digitalWrite(NEUpin3, HIGH);
-  } else {
-    digitalWrite(NEUpin2, LOW);
-    digitalWrite(LEDpin3, LOW);
-    delay(delayT);
-    digitalWrite(NEUpin2, HIGH);
-
-    digitalWrite(NEUpin3, LOW);
-    digitalWrite(LEDpin, LOW);
-    delay(delayT);
-    digitalWrite(NEUpin3, HIGH);
+  count = permaCount;
+  while (count > 0) { 
+    ledON(0, 1);
+    ledON(1, 0);
+    count = count - 1;
   }
+  delay(delayL);
+  ledOFF(0, 1);
+  ledOFF(1, 0);
+
+
+  count = permaCount;
+  while (count > 0) { 
+    ledON(2, 0);
+    ledON(1, 1);
+    ledON(0, 2);
+    count = count - 1;
+  }
+  delay(delayL);
+  ledOFF(2, 0);
+  ledOFF(1, 1);
+  ledOFF(0, 2);
+
+  count = permaCount;
+  while (count > 0) { 
+    ledON(2, 1);
+    ledON(1, 2);
+    count = count - 1;
+  }
+  delay(delayL);
+  ledOFF(2, 1);
+  ledOFF(1, 2);
+
+  count = permaCount;
+  while (count > 0) { 
+    ledON(2, 2);
+    count = count - 1;
+  }
+  delay(delayL);
+  ledOFF(2, 2);
 
 }
 
+int ledON(int X, int Y) {
+  digitalWrite(NEUpin[X], LOW);
+  digitalWrite(LEDpin[Y], HIGH);
+  delay(delayT);
+  digitalWrite(LEDpin[Y], LOW);
+  delay(delayT);
+  digitalWrite(NEUpin[X], HIGH);
+}
 
-https://devpost.com/software/756676/joins/EHM8GWxkPYi1xhmXLTLsgw
+int ledOFF(int X, int Y) {
+  digitalWrite(NEUpin[X], LOW);
+  digitalWrite(LEDpin[Y], LOW);
+  delay(delayT);
+  digitalWrite(NEUpin[X], HIGH);
+}
+
